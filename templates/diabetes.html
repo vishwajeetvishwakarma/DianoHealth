@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block content %}
+<div class="w-">
+  <h1 class="text-4xl text-center mt-5">This is Diabetes Pages</h1>
+  <form action="/diabetes" method="post" class="mt-4">
+    <div class="flex justify-center aling-cemter flex-col space-y-3 px-10 py-10 w-[50%] mx-auto">
+      {% if result %}
+        {% if result=='Yes' %}
+          <div class="px-3 py-1 bg-red-500 text-white">
+            <h1> Diabetes {{ result }} </h1>
+          </div>
+        {% else %}
+          <div class="px-3 py-1 bg-red-500 text-white">
+            <h1> Diabetes {{ result }} </h1>
+          </div>
+        {% endif %}
+      {% endif %}
+      <input required name="Pregenesy"  class=" px-3 py-1 border-b-2 border-r-2 focus:outline-none " min="0" max="10" type="number" placeholder="Pregenesy No." />
+      <input required name="Glucose" class=" px-3 py-1 border-b-2 border-r-2 focus:outline-none " min="30" max="200" type="number" placeholder="Glucose Level in 30 to 200" />
+      <input required name="BloodPressure" class=" px-3 py-1 border-b-2 border-r-2 focus:outline-none " min="35" max="108" type="number" placeholder="BloodPressure Between 35 to 108" />
+      <input required name="SkinThickness" class=" px-3 py-1 border-b-2 border-r-2 focus:outline-none " min="0" max="80" type="number" placeholder="SkinThickness from 0 to 80" />
+      <input required name="Insuline" class=" px-3 py-1 border-b-2 border-r-2 focus:outline-none " min="0" max="320" type="number" placeholder="Insuline Level from 0 to 320" />
+      <input required name="BMI" class=" px-3 py-1 border-b-2 border-r-2 focus:outline-none " min="13" max="50" type="number" placeholder="BMI between 13 to 50" />
+      <input required name="DiabetesPedigreeFunction" class=" px-3 py-1 border-b-2 border-r-2 focus:outline-none " step="any" type="number" placeholder="DiabetesPedigreeFunction between 0 to 1.2" />
+      <input required name="Age" class=" px-3 py-1 border-b-2 border-r-2 focus:outline-none " min="18" max="66" type="number" placeholder="Age Between 18 to 66" />
+      <button type="submit" class="py-3 px-6 bg-red-400 text-white">See Result</button>
+    </div>
+  </form>
+</div>
+{% endblock content %}
