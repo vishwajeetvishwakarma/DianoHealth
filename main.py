@@ -1,18 +1,18 @@
 from fastapi import FastAPI, Request, Form, File, UploadFile, BackgroundTasks
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.middleware.wsgi import WSGIMiddleware
 from fastapi.templating import Jinja2Templates
 import uvicorn
 from dataclasses import dataclass
-from contextlib import asynccontextmanager
 from typing import Annotated
 import joblib
 import tensorflow as tf
 import tensorflow_hub as hub
 import uuid
+from keras.models import load_model
 import shutil
 import os
+import keras
 
 
 app = FastAPI()
@@ -32,8 +32,13 @@ async def startup_event():
     scaler_for_diabetes = joblib.load('./data/diabetes_standard_scaler_joblib')
     diabetes_model = joblib.load('./data/diabetes_joblib')
     lung_cancer = joblib.load("./data/lung_cancer_main_joblib")
-    brain_tumor_model = tf.keras.models.load_model(
-        "./data/braintumor.h5", custom_objects={'KerasLayer': hub.KerasLayer})
+    # brain_tumor_model = tf.keras.models.load_model(
+    #     "./data/brain_tumor_model_joblib", custom_objects={'KerasLayer': hub.KerasLayer})
+    brain_tumor_model = load_model(
+        './data/braintumor.h5',
+        custom_objects={'KerasLayer': hub.KerasLayer}
+    )
+    print("loaded the model")
     ml_models['diabetes_model'] = diabetes_model
     ml_models['scaler_for_diabetes'] = scaler_for_diabetes
     ml_models['lung_cancer'] = lung_cancer
@@ -41,7 +46,7 @@ async def startup_event():
     print("Models is Loading")
 
 
-@app.get("/items/")
+@app.on_event("shutdown")
 async def end_event():
     return ml_models.clear()
 
