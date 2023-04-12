@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block content %}
+<div class="w-">
+  <h1 class="text-4xl text-center mt-5">This is BrainTumor Pages</h1>
+  <form
+    action="/braintumor"
+    method="post"
+    class="mt-4"
+    enctype="multipart/form-data"
+  >
+    <div
+      class="flex justify-center aling-cemter flex-col space-y-3 px-10 py-10 w-[50%] mx-auto"
+    >
+      {% if result %} {% if result=='Yes' %}
+      <div class="px-3 py-1 bg-red-500 text-white">
+        <h1>BrainTumor {{ result }}</h1>
+      </div>
+      {% else %}
+      <div class="px-3 py-1 bg-red-500 text-white">
+        <h1>BrainTumor {{ result }}</h1>
+      </div>
+      {% endif %} {% endif %}
+      <h1>This is Brain Tumor Page</h1>
+      <input type="file" name="file" id="file" />
+      <button type="submit" class="py-3 px-6 bg-red-400 text-white">
+        See Result
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock content %}
